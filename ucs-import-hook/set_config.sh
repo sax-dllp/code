@@ -1,4 +1,4 @@
-univention-config-registry set \
+univention-app shell ucsschool-kelvin-rest-api ucr set \
     DLLP/DEMO/users/lehrer/ox/enabled=true \
     DLLP/DEMO/users/lehrer/ox/quota=2000 \
     DLLP/DEMO/users/schueler/ox/enabled=true \
