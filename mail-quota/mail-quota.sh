@@ -20,6 +20,7 @@ CSV_REPORT="mail-quota-$(date +"%Y-%m-%d").csv"
 get_quota() {
     local domain=$1
     local column=$2
+    local sum
 
     if [ "$2" = "usage" ]; then
         column=5
@@ -31,7 +32,7 @@ get_quota() {
     fi
 
     # Get quota table for domain and sum specified column
-    local sum=$(doveadm -f table quota get -u "*@$domain" | \
+    sum=$(doveadm -f table quota get -u "*@$domain" | \
         grep STORAGE | \
         awk -v column="$column" '{sum += $column} END {print sum}')
 
@@ -53,7 +54,7 @@ convert() {
 
 # Get data for all contexts
 /opt/open-xchange/sbin/listcontext -A oxadminmaster -P \
-    $(< /etc/ox-secrets/master.secret) --csv |
+    "$(< /etc/ox-secrets/master.secret)" --csv |
     # Ignore first two lines (header and context 10)
     # and write 8th column to CSV_INPUT
     awk -F '"' 'NR>2 { print $16; }' > "$CSV_INPUT"
