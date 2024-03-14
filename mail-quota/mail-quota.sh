@@ -9,7 +9,7 @@
 ###################################################################
 
 # Debugging: print every line that is executed
-set -x
+#set -x
 # Exit on error, unset variable and pipe fail.
 set -euo pipefail
 
